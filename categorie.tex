@@ -1,0 +1,226 @@
+\documentclass[a4paper]{article}
+
+\makeatletter
+\title{Categorie}\let\Title\@title
+\author{Andrea Gallese}\let\Author\@author
+\date{\today}\let\Date\@date
+
+\usepackage{Gallo}
+
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\DD}{\mathcal{D}}
+\newcommand{\EE}{\mathcal{E}}
+
+\begin{document}
+	\Intitola
+	
+\section{Lezione 2}
+
+\ex{Chi è l'oggetto terminale in \textbf{Top}? in \textbf{Grp}?}{
+	
+L'oggetto terminale in \textbf{Top} è lo spazio $ P $ costituito dal singolo punto: da ogni spazio topologico $ X $ ho esattamente una funzione $ X \longrightarrow P $ (la costante) e questa è banalmente continua.\\
+
+Analogamente, l'oggetto terminale in \textbf{Grp} è il gruppo $ 1 $ banale.
+
+}
+
+\ex{La categoria prodotto $ \mathcal{C} \times \mathcal{D} $ è il prodotto in \textbf{Cat}?}{
+	
+
+	
+}
+
+\ex{Dimostrare che \textbf{Cat} è una categoria.}{}
+	
+\ex{Dimostrare che i funtori preservano gli isomorfismi.}{}
+
+\ex{Caratterizzare gli isomorfismi in \textbf{Cat}.}{}
+
+\ex{Costruire una categoria \textbf{Fun}$ (\mathcal{C}, \, \mathcal{D}) $ i cui oggetti siano i funtori dda $ \mathcal{C} $ a $ \mathcal{D} $, le cui mappe siano le trasformazioni naturali.}{}
+
+\ex{Chi sono gli isomorfismi in \textbf{Fun}$ (\mathcal{C}, \, \mathcal{D}) $?}{}
+
+\ex{Il funtore $ F\colon \CC \to \DD $ è un'equivalenza se e solo se è un funtore essenzialmente suriettivo e pienamente fedele.}{
+$ {\Rightarrow}\colon $ cominciamo mostrando che se $ F $ è un'equivalenza, allora è un funtore essenzialemnte suriettivo e pienamente fedele. Chiamiamo $ G $ il funtore nella direzione opposta, per cui sappiamo valere $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $.
+\begin{itemize}
+	\item Essenzialmente suriettivo: preso un qualunque $ Y \in \DD $, il corrispondente $ G(Y) \in \CC $ è per costruzione tale che $ \beta_Y\colon Y \to FG(Y) $ sia un isomorfismo.
+	
+	\item Fedele: supponiamo per assurdo che due morfismi diversi $ f, \, g \colon X \to Y $ finiscano nello stesso morfismo $ F(f) = F(g) \colon F(X) \to F(Y) $. Dal diagramma dell'equivalenza
+	\[\begin{tikzcd}[ampersand replacement = \&]
+	X \rar["\alpha_X"] \dar["f"]
+	\& GF(X) \dar["GF(f) = GF(g)" description]
+	\& X \arrow[l, "\alpha_X" above] \dar["g"] \\
+	Y \rar["\alpha_Y" below]
+	\& GF(Y)
+	\& Y \arrow[l, "\alpha_Y"]
+	\end{tikzcd}\]
+	ricaviamo che $ f = g $.
+	\item Pieno: prendiamo un morfismo $ f \colon F(X)\to F(Y) $ e consideriamo il diagramma
+	\[\begin{tikzcd}[ampersand replacement = \&]
+	X \rar["\alpha_X"] \dar["g", dashed]
+	\& GF(X) \dar["G(f)"] \\
+	Y \rar["\alpha_Y" below]
+	\& GF(Y)
+	\end{tikzcd}\]
+	completato da una e una sola $ g $. Il diagramma è però ora il diagramma dell'equivalenza, da cui dobbiamo concludere che
+	\[ G(f) = GF(g), \]
+	da cui deduciamo, sfruttando la fedeltà di $ G $, che $ f = F(g) $.
+\end{itemize}
+
+$ {\Leftarrow}\colon $ mostriamo ora che se $ F $ è un funtore pienamente fedele ed essenzialemtne suriettivo allora riusciamo a costruire un funtore $ G $ e delle trasformazioni naturali per cui $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $. \\
+
+Costruiamo $ G $. Preso un oggetto $ Y \in \DD $, grazia all'essenziale suriettività di $ F $, possiamo scegliere un oggetto $ X \in \CC $ per cui esiste un isomorfismo $ \eta_Y\colon Y \to F(X) $; chiamiamo l'oggetto $ G(Y) $. Presa una mappa $ f\colon Y_1 \to Y_2 $, consideriamo il diagramma
+\[\begin{tikzcd}[ampersand replacement = \&]
+Y_1 \rar["\eta_1"] \dar["f"]
+\& FG(Y_1) \dar["\tilde{f}", dashed] \\
+Y_2 \rar["\eta_2" ]
+\& FG(Y_2)
+\end{tikzcd}\]
+completato da uno e un solo morfismo $ \tilde{f} $, che per piena fedeltà di $ F $ corrisponde a un unico morfismo $ G(Y_1) \to G(Y_2) $ che chiamiamo $ G(f) $. In altre parole, $ G(f) $ è l'unico morfismo in $ \Hom(G(Y_1), \, G(Y_2)) $ tale che $ FG(f) $ completi il diagramma di sopra. \\
+
+Mostriamo che $ G $ è un funtore. Che preservi l'identità è chiaro, infatti
+\[\begin{tikzcd}[ampersand replacement = \&]
+Y \rar["\eta_Y"] \dar["1_Y"]
+\& FG(Y) \dar["1_{FG(Y)}"] \\
+Y \rar["\eta_Y" ]
+\& FG(Y)
+\end{tikzcd}\]
+commuta. Che preservi la composizione segue dall'attenta contemplazione del diagrammone
+\[\begin{tikzcd}[ampersand replacement = \&]
+X \rar["\eta_X"] \dar["f"] 
+\& FG(X) \dar["FG(f)"] \arrow[dd, bend left = 70, "F(G(g)G(f)) = FG(gf)", dashed] \\
+Y \rar["\eta_Y"] \dar["g"]
+\& FG(Y) \dar["FG(g)"] \\
+Z \rar["\eta_Z"]
+\& FG(Z).
+\end{tikzcd}\]
+La mappa $ F(G(g)G(f))$ fa commutare il quadrato esterno per funtorialità di $ F $ ed è dunque $ FG(gf) $ per definizione. Della fedeltà di $ F $ deduciamo che
+\[ G(gf) = G(g)G(f). \]
+
+È evidente che $ FG $ è naturalmente isomorfo all'identità di $ \DD $ per costruizione, mostriamo dunque che c'è una trasfromazione naturale invertibile tra $ GF $ e $ 1_\CC $. Costruiamo questa trasformazione naturale: prendiamo $ X \in \CC $ e $ F(X) \in \DD $, associato a questo oggetto tramite la scelta iniziale c'è un elemento $ X' \in \CC $ (che ufficialmente abbiamo chiamato $ GF(X') $) con tanto di isomorfismo $ \eta\colon F(X) \to F(X') $. Per piena fedeltà possiamo sollevare $ \eta $ a una mappa $ \alpha $ che, per funtorialità di $ F $, rimane un isomorfismo:
+\[ \alpha_X \colon X \to GF(X). \]
+Non ci resta che mostrare che $ \alpha $ è naturale. Prendiamo un morfismo $ f \colon X_1 \to X_2  $ e ricordiamoci che $ GF(f) $ è l'unico morfismo tale che il seguente diagramma commuta
+\[\begin{tikzcd}[ampersand replacement = \&]
+F(X_1) \rar["\eta_1 = F(\alpha_1)"] \dar["F(f)"]
+\& FGF(X_1) \dar["FGF(f)"] \\
+F(X_2) \rar["\eta_2 = F(\alpha_2)" ]
+\& FGF(X_2).
+\end{tikzcd}\]
+Da cui ricaviamo che $ F(GF(f)) ) = F(\alpha_2f\alpha_1^{-1}) $ e dunque, grazie alla fedeltà di $ f $, che
+\[\begin{tikzcd}[ampersand replacement = \&]
+X_1 \rar["\alpha_1"] \dar["f"]
+\& GF(X_1) \dar["GF(f)"] \\
+X_2 \rar["\alpha_2" ]
+\& GF(X_2)
+\end{tikzcd}\]
+commuta.
+}
+
+\section{Lezione 3}
+
+\ex{Sia $ F\colon \CC \to \DD $ un funtore pieno, im$ (F) $ è una sottocategoria piena di $ D $?}{
+Sì! Siano $ F(X) $ e $ F(Y) $ due oggetti della sottocategoria immagine, il funtore $ F $ induce per ipotesi una funzione suriettiva tra gli insiemi $ \Hom_\CC(X, \, Y) $ e $ \Hom_\DD(F(X), \, F(Y)) $, che è quello che volevamo.
+}
+
+\ex{La composizione orizzontale è ben definita. Ovvero dato si riesce a collassare
+\[\begin{tikzcd}[ampersand replacement = \&]
+\CC \rar["F"{name=F}, bend left = 50] \rar["G"{name=G, below}, bend right = 50]
+\& \DD \rar["H"{name = H}, bend left = 50] \rar["K"{name= K, below}, bend right = 50]
+\& \EE
+\arrow["\alpha", Rightarrow, from=F, to=G, shorten <=4pt,shorten >=4pt]
+\arrow["\beta", Rightarrow, from=H, to=K, shorten <=4pt,shorten >=4pt]
+\end{tikzcd}
+\qquad\text{ collassa in }\qquad
+\begin{tikzcd}[ampersand replacement = \&]
+\CC \arrow[rr, "HF"{name=F}, bend left = 50] \arrow[rr, "KG"{name=G, below}, bend right = 50]
+\&\& \EE.
+\arrow["\beta\star\alpha", Rightarrow, from=F, to=G, shorten <=4pt,shorten >=4pt]
+\end{tikzcd}\]}{
+
+C'è fondamentalmente un unico modo di costruire una trasformazione naturale tra $ HF $ e $ KG $: per ogni elemento $ X \in \CC $ otteniamo una mappa $ \alpha_X\colon F(X) \to G(X) $ in $ \DD $, che produce il seguente diagramma in $ \EE $:
+\[\begin{tikzcd}[ampersand replacement = \&]
+HF(X)
+  \rar["\beta_{F(X)}"]
+  \dar["H(\alpha_X)" left]
+  \arrow[dr, dashed, "\beta \star \alpha_X" description]
+\& KF(X)
+  \dar["K(\alpha_X)"] \\
+HG(X)
+  \rar["\beta_{G(X)}" below]
+\& KG(X).
+\end{tikzcd}\]
+Questa è effetivamente una trasformazione naturale: infatti un morfismo $ X \to Y $ produce un cubo commutativo
+\[\begin{tikzcd}[row sep=small, column sep=small, ampersand replacement = \&]
+	\& HF(X) \arrow[dl, red] \arrow[rr] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_X" near start] \&\& KF(X) \arrow[dl] \arrow[dd] \\
+	HF(Y) \arrow[rr, crossing over] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_Y"{near end, below}] \& \& KF(Y) \\
+	\& HG(X) \arrow[dl] \arrow[rr] \& \& KG(X) \arrow[dl, red] \\
+	HG(Y) \arrow[rr] \& \& KG(Y) \arrow[from=uu, crossing over]\\
+\end{tikzcd}\]
+dal quale deduciamo la commutatività del quadrato di sbieco segnato in rosso, a cui siamo interessati.
+}
+
+\ex{Dimostrare che composizione orizzontale e verticale commutano.
+%\[\begin{tikzcd}[ampersand replacement = \&]
+%\CC
+%  \rar["F"{name=F}, bend left = 50]
+%  \rar["G"{name=G}]
+%  \rar["H"{name=H, below}, bend right = 50] \& 
+%\DD
+%  \rar["J"{name = J}, bend left = 50]
+%  \rar["K"{name= K}]
+%  \rar["L"{name= L, below}, bend right = 50] \&
+%\EE
+%\arrow["\alpha", Rightarrow, from=F, to=G, shorten <=4pt,shorten >=4pt]
+%\arrow["\beta", Rightarrow, from=G, to=H, shorten <=4pt,shorten >=4pt]
+%\end{tikzcd}\]
+}{
+\[\begin{tikzcd}[ampersand replacement = \&]
+JF
+  \dar["J(\alpha)"]
+  \rar["\gamma_F"]
+  \arrow[dr, "\gamma \star \alpha", red]
+  \arrow[dd, bend right = 50, dashed, "J(\beta\alpha)" left, blue]\&
+KF
+  \dar["K(\alpha)"] 
+  \rar["\delta_F"]\&
+LF
+  \dar["L(\alpha)"]\\
+JG
+  \dar["J(\beta)"]
+  \rar["\gamma_G"]\&
+KG
+  \dar["K(\beta)"]
+  \rar["\delta_G"]
+  \arrow[dr, "\delta \star \beta", red]\&
+LG
+  \dar["L(\beta)"]\\
+JH
+  \rar["\gamma_H"]
+  \arrow[rr, bend right = 30, dashed, "\delta_H\gamma_H" below, blue]\&
+KH 
+  \rar["\delta_H"]\&
+LH
+\end{tikzcd}\]
+}
+
+\ex{Sia $ F\colon \CC \to \DD $ un funtore pienamente fedele, dimostrare che:
+\begin{enumerate}
+	\item Se $ F(f) $ è un isomorfismo, anche $ f $ è un isomorfismo.
+	\item Se ho un isomorfismo $ F(X) \to F(Y) $, ne ho uno anche tra $ X $ e $ Y $.
+\end{enumerate}}{
+Niente di più semplice! Sia $ F(f)\colon F(X) \to F(Y) $ un isomorfismo, $ \tilde{g}= F(g) $ il suo inverso (osservare che abbiamo usato l'ipotesi di pienezza). Per funtorialità dobbiamo avere \[ F(gf) = F(g)F(f) = 1_{F(X)}. \]
+La fedeltà ci dice però che un solo elmento di $ \Hom_\CC(X, \, X) $ viene mandato in $ 1_{F(X)} \in \Hom_\DD(F(X), \, F(X)) $ e questo dev'essere, per funtorialità di $ F $, l'identità di $ X $. Analogo discorso mostra che $ fg $ è l'identità di $ Y $.
+}
+
+\ex{Trovare un controesempio al lemma di sopra lasciando cadere l'ipotesi di pienezza.}{
+Andiamo sul patologico.
+\[ \begin{tikzcd}[ampersand replacement = \&]
+\spadesuit \rar \arrow[out=180,in=90,loop] \& \clubsuit \arrow[out=0,in=90,loop]
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[ampersand replacement = \&]
+F(\spadesuit) \rar[bend right = 30] \arrow[out=180,in=90,loop] \& F(\clubsuit) \lar[bend right = 30, red] \arrow[out=0,in=90,loop]
+\end{tikzcd} \]
+}
+
+\end{document}
