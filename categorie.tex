@@ -11,8 +11,18 @@
 \newcommand{\DD}{\mathcal{D}}
 \newcommand{\EE}{\mathcal{E}}
 
+\DeclareMathOperator{\Fun}{\mathbf{Fun}}
+\DeclareMathOperator{\Set}{\mathbf{Set}}
+\DeclareMathOperator{\Cat}{\mathbf{Cat}}
+
 \begin{document}
+	\newgeometry{left=5cm, right=5cm, bottom=0.1cm}
+	
 	\Intitola
+	
+	\small{È possibile pensare a queste dispense come alla categoria (o, più verosibilmente, a una sottocategoria di) \textbf{Exr} degli esercizi assegnati durante il corso di Teoria delle Categoria dell'Università di Pisa dell'anno accademico 2019/20. Un morfismo tra due esercizi $ X \to Y $ è inteso essere un modo di fare seguire il risultato di $ Y $ dal risultato di $ X $. È lasciato al lettore, come esercizio, il piacere di verificare che \textbf{Exr} è effettivamente una categoria.}
+	
+	\restoregeometry
 	
 \section{Lezione 2}
 
@@ -24,11 +34,7 @@ Analogamente, l'oggetto terminale in \textbf{Grp} è il gruppo $ 1 $ banale.
 
 }
 
-\ex{La categoria prodotto $ \mathcal{C} \times \mathcal{D} $ è il prodotto in \textbf{Cat}?}{
-	
-
-	
-}
+\ex{La categoria prodotto $ \mathcal{C} \times \mathcal{D} $ è il prodotto in \textbf{Cat}?}{}
 
 \ex{Dimostrare che \textbf{Cat} è una categoria.}{}
 	
@@ -221,6 +227,181 @@ Andiamo sul patologico.
 \begin{tikzcd}[ampersand replacement = \&]
 F(\spadesuit) \rar[bend right = 30] \arrow[out=180,in=90,loop] \& F(\clubsuit) \lar[bend right = 30, red] \arrow[out=0,in=90,loop]
 \end{tikzcd} \]
+(c'è pure un esempio più piccolo!)
+}
+
+\section{Lezione 4}
+
+\ex{Dimostrare che c'è un isomorfismo
+	\[  \Hom_\mathbf{Cat}(\CC \times \DD,\, \EE) \simeq \Hom_\mathbf{Cat}(\CC, \, \Fun(\DD, \, \EE)) \qquad\text{naturale in } \CC, \, \DD, \, \EE. \]
+C'è anche un'equivalenza di categorie
+\[  \Fun(\CC \times \DD,\, \EE) \simeq \Fun(\CC, \, \Fun(\DD, \, \EE)) \qquad\text{naturale in } \CC, \, \DD, \, \EE? \]}{
+Mortale. L'isomorfismo altro non è che una bigezione. Costruiamo mappe nelle due direzioni e mostriamo che sono una l'inversa dell'altra.
+\begin{align*}
+	\mathcal{A}\colon \Hom_\mathbf{Cat}(\CC \times \DD,\, \EE) & \to \Hom_\mathbf{Cat}(\CC, \, \Fun(\DD, \, \EE))\\
+	\Phi & \mapsto (X \mapsto \Phi(X\times \,\bullet\,)) 
+\end{align*}
+Volendo, possiamo riformulare questo funtore in termini di più funtori semplici: fissato $ X \in \CC $, consideriamo il funtore $ \varphi_X\colon D \to C \times D $ che otteniamo imponendo che sulle componenti sia da un lato l'identità e dall'altro l'elemento costante $ X $ (e che manda tutte le mappe nell'identità)
+\[\begin{tikzcd}[ampersand replacement = \&]
+\& D
+  \arrow[dl, "\text{c}_X" above]
+  \arrow[d, "\varphi_X", dashed]
+  \arrow[dr, "1_D"]\& \\
+C \& C\times D
+  \lar \rar
+\& D
+\end{tikzcd}  \]
+}
+
+\ex{Verificare che un monoide $ G $ in \textbf{Ab} fornito di una moltiplicazione $ m\colon G \otimes G \to G  $ è un anello.}{}
+
+\ex{Convincersi che una categoria è un monoide nella categoria degli $ MObOb $.}{}
+
+
+\ex{Verificare che $ \Hom_\CC(X, \, \bullet\,)\colon \CC \to \Set $ è un funtore.}{
+}
+
+\ex{Sia $ G $ un gruppo e $ \mathbf{BG} $ la categoria con un solo oggetto i cui morfismi sono gli elementi di $ G $:
+\[\begin{tikzcd}
+\spadesuit \arrow["g \in G" right, out=0,in=90,loop].
+\end{tikzcd}  \]
+Ci chiediamo:
+\begin{enumerate}
+	\item Chi sono $ \Fun(\mathbf{BG}, \,\Set) $?
+	\item C'è un solo funtore da $ \mathbf{BG} $ rappresentabile: chi è?
+\end{enumerate}}{
+\begin{enumerate}
+	\item Un funtore $ F \colon \mathbf{BG} \to \Set $ manda l'unico elemento in un insieme $ F(\spadesuit) = X $ e i morfismi in funzioni da $ X $ in sé stesso. Poiché ogni elemento di un gruppo è invertibile e i funtori preservano gli isomorfismi, l'immagine dei morfismi sarà contenuta nel gruppo delle bigezioni $ \mathcal{S}(X) $. Ricordando che i funtori rispettano la composizione otteniamo che ogni funtore corrisponde con un omomorfismo $ F \colon G \to \mathcal{S}(X) $, ovvero un'azione di $ G $ su $ X $.
+	\item Il funtore è, per definizione, $ \Hom_\mathbf{BG}(\spadesuit, \, \bullet \,) $. L'unico oggetto viene mandato nell'insieme $ \Hom_\mathbf{BG} (\spadesuit, \, \spadesuit) = G $. Ogni morfismo $ g \in G $ viene mandato in $ L_g $, la moltiplicazione a sinistra per $ g $, il che definisce, coerentemente con quanto trovato prima, un'azione di $ G $ su sé stesso.
+\end{enumerate}
+}
+
+\section{Lezione 5}
+
+\begin{theorem}[Lemma di Yoneda]
+Preso un oggetto $ X \in \CC $ e un funtore $ F\colon \CC \to \Set $, esiste una bigezione (naturale in $ F $ e $ X $)
+\[ \Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, F(\,\bullet\,)) \to F(X), \]
+che conosciamo esplcitamente: $ \alpha \mapsto \alpha_X(id_X). $
+\end{theorem}
+
+\ex{Mostrare la naturalità.}{
+	Cominciamo dalla naturalità in $ F $: supponiamo di avere una trasformazione naturale $ \beta\colon F \Rightarrow G $. Vorremmo allora che commutasse il diagramma
+	\[\begin{tikzcd}[ampersand replacement = \&]
+	\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, F(\,\bullet\,))
+	  \rar
+	  \dar["\beta_*"] \&
+	F(X)
+	  \dar["\beta_X"] \\
+	\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, G(\,\bullet\,))
+	  \rar \&
+	G(X)
+	\end{tikzcd}  \]
+	o, equivalentemente, che $ (\beta\circ\alpha)_X(id_X) = \beta_X(\alpha_X(id_X)) $. L'ultima uguaglianza è esattamente la defizione di composizione tra trasformazioni natruali. \\
+	
+	La naturalità in $ X $ è meno immediata: supponiamo di avere un morfismo $ f \colon X \to Y $. Vorremo che commutasse il diagramma
+	
+	\[\begin{tikzcd}[ampersand replacement = \&]
+	\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, F(\,\bullet\,))
+	\rar
+	\dar["(f^*)^*"] \&
+	F(X)
+	\dar["Ff"] \\
+	\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(Y, \, \bullet\,), \, F(\,\bullet\,))
+	\rar \&
+	F(Y)
+	\end{tikzcd}  \]
+	o, equivalentemente, che $ ((f^*)^*(\alpha))_Y (id_Y) = Ff(\alpha_X(id_X)) $. Questa volta i passaggi non sono immediati:
+	\begin{align*}
+		[(f^*)^*(\alpha)]_Y (id_Y) & = (\alpha f^*)_Y (id_Y) \\
+								   & = \alpha_Y (f) \\
+								   & = (\alpha_Yf_* )(id_Y)) \\
+								   & = Ff(\alpha_Y)(id_Y)).
+	\end{align*}
+	L'ultima uguaglianza segue dal diagramma commutativo della naturalità di $ \alpha $ associato alla mappa $ f\colon X \to Y $:
+	\[\begin{tikzcd}[ampersand replacement = \&]
+	\Hom_\CC(X, \, X)
+	\rar["\alpha_X"]
+	\dar["f_*"] \&
+	F(X)
+	\dar["Ff"] \\
+	\Hom_\CC(X, \, Y)
+	\rar["\alpha_Y"] \&
+	F(Y).
+	\end{tikzcd}  \]
+}
+
+\ex{Riformulare il lemma in modo da tramutare la bigezione in un isomorfismo. (??)}{
+Sembra che l'idea sia considerare la categoria prodotto $ \CC \times \Fun(\CC, \, \Set) $ e i due bifuntori verso $ \Set $ dati da $ (X, \, F) \mapsto F(X) $ e $ (X, \, F) \mapsto \Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, F(\,\bullet\,)) $. Il Lemma di Yoneda asserisce dunque che l'esistenza di un isomorfismo tra questi bifuntori.}
+
+\ex{Dimostrare che dal lemma segue che il funtore $ F\colon\CC^\texttt{op} \to \Fun(C, \, \Set) $ che manda $ X \mapsto \Hom_\CC(X, \, \bullet \, ) $ è pienamente fedele.}{
+Per il Lemma di Yoneda applicato alla coppia $ Y, \, F $ si ha una bigezione 
+\[ \Hom_{\Fun(C, \, \Set)}(\Hom_\CC(Y, \, \bullet \, ), \, \Hom_\CC(X, \, \bullet \, )) \simeq \Hom_\CC(X, \, Y), \]
+che è proprio quello che volevamo.
+}
+
+\ex{Enunciare e dimostrare la forma duale del lemma di Yoneda.}{
+Preso un oggetto $ X \in \CC $ e un funtore $ F\colon \CC^\texttt{op} \to \Set $, esiste una bigezione (naturale in $ F $ e $ X $)
+\[ \Hom_{\Fun(\CC^\texttt{op}, \, \Set)}(\Hom_\CC(\,\bullet\, , \, X), \, F(\,\bullet\,)) \to F(X), \]
+che conosciamo esplcitamente: $ \alpha \mapsto \alpha_X(id_X). $
+}
+
+\ex{Dimostrare che se 
+\[ \Hom_\CC(X, \, \bullet \, ) \simeq \Hom_\CC(Y, \, \bullet \,) \]
+allora $ X \simeq Y $ in $ \CC $.}{
+Segue dagli esercizi 4.21 e 2.12.
+}
+
+\section{Lezione 6}
+
+\ex{Dimostrare che il prodotto tensore tra spazi vettoriali è commutativo, associativo e banale su $ k $ usando esclusivamente la proprietà universale.}{
+Pensiamo al prodotto tensore come il rappresentante del funtore Bilin$_k (V, \, W; \, \bullet \,)\colon \mathbf{Vect}_k \to \Set $ che manda ogni spazio vettoriale $ Z $ nelle funzioni bilineari $ \varphi \colon V \times W \to Z $. \\
+
+Per mostrare che il prodotto tensore è commutativo sarà pertanto sufficiente dimostrare che i funtori Bilin$_k (V, \, W; \, \bullet \,)$ e Bilin$_k (W, \, V; \, \bullet \,)$ sono isomorfi: è chiaro che l'isomorfismo sarà dato da $$  \varphi \mapsto \varphi^*(x,\, y) = \varphi(y, \, x).  $$
+
+Per mostrare che su $ k $ è banale sarà sufficiente osservare che Bilin$_k (V, \, k; \, \bullet \,)$ è isomorfo a $ \Hom(V, \, \bullet \,) $, che è chiaro. \\
+
+L'associativa è lunga. Direi che l'idea è di far vedere che Bilin$_k (V \otimes W, \, Z; \, \bullet \,)$ è isomorfo al funtore che associa a uno spazio le funzioni multilineari da $ V, \, W, \, Z $: mi basterà mandare una bilieare $ \varphi $ in una multilineare $ \psi(V, \, W, \, Z) = \varphi(\otimes(V, \, W), \, Z). $ Dove $ \otimes $ è lo speciale elemento di Bilin$_k (V, \, W ; V \otimes W)$ selezionato da Yoneda (che arriva dall'isomorfismo della rappresentabilità?).
+}
+
+\ex{Verificare che la versione superdebole della corrispondenza di Tannaka funziona: ovvero la composizione in $ \Aut{F} $ coincide con quella di $ \Hom_{G-\text{set}}(G, \, G) $.}{
+Il funtore dimenticante $ F \colon G-\text{set} \to G $ è rappresentato da $ \Hom(G, \, \bullet \, ) $, da cui
+\[ \text{End}_{\Fun} (F) \simeq \Hom_{}(G, \, G) = G \]
+per Yoneda. Dunque presi $ \alpha, \, \beta \in \text{End}_{\Fun} (F) $ si ha che
+\[ (\beta \circ \alpha)_G(id_G) = \beta_G(\alpha_G(id_G)) \]
+che è la mappa che manda $ 1 \mapsto \beta_G \circ \alpha_G \circ id_G (1). $
+}
+
+\ex{Mostrare che le due definizioni di colimite coincidono.}{
+Ricordiamo brevemente le due definizioni:
+\begin{enumerate}
+	\item L'oggetto $ X $ che rappresenta Coni$(F, \, \bullet \, ) \colon \CC \to \Set $.
+	\item L'oggetto $ Y $ iniziale nella categoria dei coni sotto $ F $.
+\end{enumerate}
+Osserviamo che \textbf{la prima definizione è sbagliata}: infatti $ X \in \CC $ non può essere un cono. L'errore non è però solo formale, infatti non è stata proprio definita la trasformazione naturale $ F \Rightarrow X $! Per farlo abbiamo bisogno di invocare Yoneda 
+\[ \Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, )) \simeq \text{Coni}(F, \, X ): \]
+allo specifico isomorfismo di rappresentabilità a sinistra $ \Phi\colon\text{Coni}(F, \, \bullet \, ) \simeq \Hom_\CC(X, \, \bullet \,) $, corrisponde infatti un cono $ F \Rightarrow X $ a destra.\\
+
+Mostriamo che $ X $ è l'oggetto iniziale nella categoria dei coni sotto $ F $: vogliamo mostrare che, preso un cono $ F \Rightarrow Z $ sotto $ F $, esiste un'unica trasfromazione naturale $ \varphi $ che fa commutare il diagramma
+\[\begin{tikzcd}[ampersand replacement = \&]
+F
+\rar[Rightarrow]
+\dar[Rightarrow] \&
+X \arrow[dl, Rightarrow, "\varphi"]\\
+Z 
+\end{tikzcd}  \]
+
+Prendiamo un cono $ \gamma \colon F \Rightarrow Z $ sotto $ F $: questo è un elemento di Coni$(F, \, Z)$ e corrisponde pertanto a un morfismo $ \Phi_Z(\gamma) \colon X \to Z $. Dalla naturalità del Lemma di Yoneda otteniamo un morfismo associato $ C(f)\colon\text{Coni}(F, \, X) \to \text{Coni}(F,\, Z) $ che, in particolare, produce un morfismo dal cono limite $ X $ al cono $ Y $: 
+\[\begin{tikzcd}[ampersand replacement = \&]
+\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, ))
+\rar
+\dar["(f^*)^*"] \&
+\text{Coni}(F, \, X )
+\dar["C(f)"] \\
+\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(Z, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, ))
+\rar \&
+\text{Coni}(F, \, Z ).
+\end{tikzcd}  \]
+
 }
 
 \end{document}
