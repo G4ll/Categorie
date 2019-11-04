@@ -6,6 +6,7 @@
 \date{\today}\let\Date\@date
 
 \usepackage{Gallo}
+\usepackage[normalem]{ulem}
 
 \newcommand{\CC}{\mathcal{C}}
 \newcommand{\DD}{\mathcal{D}}
@@ -379,29 +380,102 @@ Ricordiamo brevemente le due definizioni:
 \end{enumerate}
 Osserviamo che \textbf{la prima definizione è sbagliata}: infatti $ X \in \CC $ non può essere un cono. L'errore non è però solo formale, infatti non è stata proprio definita la trasformazione naturale $ F \Rightarrow X $! Per farlo abbiamo bisogno di invocare Yoneda 
 \[ \Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, )) \simeq \text{Coni}(F, \, X ): \]
-allo specifico isomorfismo di rappresentabilità a sinistra $ \Phi\colon\text{Coni}(F, \, \bullet \, ) \simeq \Hom_\CC(X, \, \bullet \,) $, corrisponde infatti un cono $ F \Rightarrow X $ a destra.\\
+allo specifico isomorfismo di rappresentabilità a sinistra $ \Phi\colon\Hom_\CC(X, \, \bullet \,) \simeq\text{Coni}(F, \, \bullet \, )  $, corrisponde infatti un cono $ \chi\colon F \Rightarrow X $ a destra. Equivalentemente, possiamo pensare all'oggetto limite come all'elemento $ \Phi_X(id_X) $ di $ \text{Coni}(F, \, X ) $. \\
 
-Mostriamo che $ X $ è l'oggetto iniziale nella categoria dei coni sotto $ F $: vogliamo mostrare che, preso un cono $ F \Rightarrow Z $ sotto $ F $, esiste un'unica trasfromazione naturale $ \varphi $ che fa commutare il diagramma
+Preso dunque un cono qualunque $ \gamma \colon F \Rightarrow Z $ sotto $ F $, questo è identificato, tramite l'isomorfismo $ \Phi_Z \colon\Hom_\CC(X, \, Z) \simeq\text{Coni}(F, \, Z)  $, da un unico elemento $ f \in \Hom_\CC(X, \, Z) $ (insomma, possiamo pensare al cono in questione come all'elemento $ \Phi_Z(f) $). Dalla naturalità di $ \Phi $ otteniamo il diagramma commutativo
 \[\begin{tikzcd}[ampersand replacement = \&]
-F
-\rar[Rightarrow]
-\dar[Rightarrow] \&
-X \arrow[dl, Rightarrow, "\varphi"]\\
-Z 
+\Hom_\CC(X, \, X)
+  \rar["\Phi_X" ]
+  \dar["f^*" ] \&
+\text{Coni}(F, \, X)
+  \arrow[d, "C_f"  ]\\
+\Hom_\CC(X, \, Z)
+  \rar["\Phi_Z"]
+\&\text{Coni}(F, \, Z),
+\end{tikzcd}  \]
+che dice, in particolare, che $ \gamma = \Phi_Z(f) = C_f(\Phi_X(id_X)) = C_f(\chi) $, ovvero che il cono $ \Phi_Z(f) $ è effettivamente quello che si ottiene componendo il limite $ \chi $ con $ f $ a sinistra (o meglio, con il morfismo tra coni identificato da $ f $). Viceversa, un morfismo di coni da $ \chi $ a $ \gamma $ è necessariamente della forma $ C_g $ per una qualche mappa $ g\colon X \to Z $, la quale a sua volta identifica, tramite l'isomorfismo $ \Phi_Z $ un cono $ \Phi_Z(g)=C_g(\chi) $, che può coincidere con $ \gamma $ solamente se $ g = f $ (per bigettività di $ \Phi_Z $). Abbiamo dunque mostrato che esiste un unico morfismo di coni da $ \chi $ a un qualunque cono $ \gamma $, ovvero che $ \chi $ è iniziale nella categoria dei coni sotto $ F $. \\
+
+Il viceversa sarà più scorrevole. Chiamiamo $ \chi\colon F \Rightarrow Y $ il limite e sia, come prima, $ \gamma \colon F \Rightarrow Z $ un cono qualunque sotto $ F $; per ipotesi esiste un unico morfismo di coni da $ \chi $ a $ \gamma $ e, come osservato in precedenza, questo coincide con la composizione per una qualche morfismo $ f_\gamma\colon Y \to Z $. In particolare, possiamo scrivere $ \gamma = C_{f_\gamma} (\chi) $: questo definisce in modo univoco una trasformazione di componenti
+\begin{align*}
+	\Psi_Z\colon \text{Coni}(F, \, Z) &\to \Hom_\CC(Y, \, Z)\\
+	\gamma & \mapsto f_\gamma,
+\end{align*}
+la cui naturalità segue dall'osservare che, per ogni $ f \colon Z \to W $ in $ C $, si ha $ f\Psi_Z(\gamma) = \Psi_W(C_f(\gamma)) $; infatti:
+\begin{align*}
+	C_{f\Psi_Z(\gamma)}(\chi) &
+	= C_{f} C_{\Psi_Z(\gamma)}(\chi) & \text{ per funtorialità di } C, \\
+	& = C_{f}(\gamma) & \text{ per definizione di } \Psi_Z, \\
+	& = C_{\Psi_W(C_f(\gamma))}(\chi) & \text{ per definizione di } \Psi_W.
+\end{align*}}
+
+\section{Lezione 7}
+\ex{Si consideri il seguente diagramma {commutativo} in $ \CC $:
+\[\begin{tikzcd}[ampersand replacement = \&]
+A \rar\dar\& B \rar\dar\& C \dar \\
+D \rar\& E \rar\& F.
+\end{tikzcd}  \]
+Si dimostri che:
+\begin{enumerate}
+	\item se i due piccoli quadrati sono cartesiani, lo è anche quello grosso;
+	\item se il quadrato grosso e \textbf{quello di destra} sono cartesiani, lo è ache quello di sinistra.
+\end{enumerate}}{
+1. Niente di più facile! Prendiamo un oggetto $ X $ adornato di due mappa $ X \to D $, $ X \to C $ che producono un diagramma commutativo
+\[\begin{tikzcd}[ampersand replacement = \&]
+X \arrow[dd, bend right = 50, blue]
+  \arrow[rrd, bend left = 30, blue]
+  \arrow[rd, bend left = 30, dashed, "1" description, red]
+  \arrow[d, dashed, "2", red]
+\&\&\\
+A \rar\dar\& B \rar\dar\& C \dar \\
+D \rar\& E \rar\& F.
+\end{tikzcd}  \]
+Componendo $ X\to D \to E $, scopriamo che $ X $ è un cono sopra la $ \lrcorner $ del quadrato di destra, la cui cartesianità produce un'unica mappa $ X \to B $. Questa mappa fornisce ad $ X $ una struttra di cono sopra la $ \lrcorner $ del quadrato di sinistra, la cui cartesianità produce un'unica mappa $ X \to A $. Questo dimostra che il quadrato grosso è cartesiano: l'unicità di questa mappa segue infatti osservando che ogni mappa $ X \to A $ con le proprietà richieste ne induce una $ X \to B $ che deve necessariamente coincidere con $ (1) $. \\
+
+2. Questo caso è più sottile: per costruire la mappa $ X \to A $ è sufficiente che il quadrato grosso sia commutativo:
+\[\begin{tikzcd}[ampersand replacement = \&]
+X \arrow[dd, bend right = 50, blue]
+  \arrow[rd, bend left = 30, blue]
+  \arrow[rrd, bend left = 30, dashed, blue]
+  \arrow[d, dashed, "1", red]
+\&\&\\
+A \rar\dar\& B \rar\dar\& C \dar \\
+D \rar\& E \rar\& F.
+\end{tikzcd}  \]
+Molto sospetto.
+}
+
+
+\ex{Costruire gli equalizzatori usando solo la parola ``pullback''.}{
+La costruzione non è completamente immediata: secondo me il modo giusto è dire che il pullback di 
+\[\begin{tikzcd}[ampersand replacement = \&]
+\& X \dar["1_X \times g"] \\
+X \rar["1_X\times f"] \& X \times Y. 
+\end{tikzcd}  \]
+Questo sarà un oggetto del tipo
+\[\begin{tikzcd}[ampersand replacement = \&]
+E \rar["p_1"]\dar["p_2"] \& X \dar["1_X \times g"] \\
+X \rar["1_X\times f"] \& X \times Y,
+\end{tikzcd}  \]
+universale. Questa formulazione ci permette di concludere che $ p_1 = p_2 $, infatti
+\[ p_1 =  \pi_X \circ (1_X \times g) \circ p_1 = \pi_X \circ (1_X \times f) \circ p_2 = p_2.  \]
+L'unico trucco è che abbiamo usato la parola ``prodotto'', di cui però non possiamo fare a meno (credo).
+}
+
+\ex{Completare la dimostrazione della completezza di $ \Set $ con le verifiche opportune.}{
+
+}
+
+\ex{Sia $ \CC $ una categoria in cui troviamo i morfismi $ f \colon X \to Y $ e $ g \colon Z \to W $. Costruire l'insieme dei quadrati commutativi con $ f $ e $ g $ orrizontali come pullback in $ \Set $.}{
+L'abbiamo praticamente fatto in classe: DiagComm$ (f,\, g) $ è il pullback in $ \Set $ di
+\[\begin{tikzcd}[ampersand replacement = \&]
+\& \Hom_\CC(Y, \, W) \dar["f_*"] \\
+\Hom_\CC(X, \, Z) \rar["g^*"] \& \Hom_\CC(X, \, W). 
 \end{tikzcd}  \]
 
-Prendiamo un cono $ \gamma \colon F \Rightarrow Z $ sotto $ F $: questo è un elemento di Coni$(F, \, Z)$ e corrisponde pertanto a un morfismo $ \Phi_Z(\gamma) \colon X \to Z $. Dalla naturalità del Lemma di Yoneda otteniamo un morfismo associato $ C(f)\colon\text{Coni}(F, \, X) \to \text{Coni}(F,\, Z) $ che, in particolare, produce un morfismo dal cono limite $ X $ al cono $ Y $: 
-\[\begin{tikzcd}[ampersand replacement = \&]
-\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, ))
-\rar
-\dar["(f^*)^*"] \&
-\text{Coni}(F, \, X )
-\dar["C(f)"] \\
-\Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(Z, \, \bullet\,), \, \text{Coni}(F, \, \bullet \, ))
-\rar \&
-\text{Coni}(F, \, Z ).
-\end{tikzcd}  \]
+}
 
+\ex{Quanto sono belli i funtori dimenticanti? Quanto sono belli i funtori liberi?}{
+Non tutti i funtori dimenticanti preservano i limiti. Per dire, il prodotto in \textbf{Top}$ _* $ (la categoria degli spazi topologici puntati) non ha come insieme soggiacente il prodotto degli insiemi dei due spazi puntati. Questo ci dice anche che non può riflettere i limiti. Però forse non era proprio questa la domanda...
 }
 
 \end{document}
