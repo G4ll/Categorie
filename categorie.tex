@@ -7,6 +7,7 @@
 
 \usepackage{Gallo}
 \usepackage[normalem]{ulem}
+\usetikzlibrary{shapes.geometric}
 
 \newcommand{\CC}{\mathcal{C}}
 \newcommand{\DD}{\mathcal{D}}
@@ -15,6 +16,7 @@
 \DeclareMathOperator{\Fun}{\mathbf{Fun}}
 \DeclareMathOperator{\Set}{\mathbf{Set}}
 \DeclareMathOperator{\Cat}{\mathbf{Cat}}
+\def\colim{\qopname\relax m{colim}}
 
 \begin{document}
 	\newgeometry{left=5cm, right=5cm, bottom=0.1cm}
@@ -43,12 +45,12 @@ Analogamente, l'oggetto terminale in \textbf{Grp} è il gruppo $ 1 $ banale.
 
 \ex{Caratterizzare gli isomorfismi in \textbf{Cat}.}{}
 
-\ex{Costruire una categoria \textbf{Fun}$ (\mathcal{C}, \, \mathcal{D}) $ i cui oggetti siano i funtori dda $ \mathcal{C} $ a $ \mathcal{D} $, le cui mappe siano le trasformazioni naturali.}{}
+\ex{Costruire una categoria \textbf{Fun}$ (\mathcal{C}, \, \mathcal{D}) $ i cui oggetti siano i funtori da $ \mathcal{C} $ a $ \mathcal{D} $, le cui mappe siano le trasformazioni naturali.}{}
 
 \ex{Chi sono gli isomorfismi in \textbf{Fun}$ (\mathcal{C}, \, \mathcal{D}) $?}{}
 
 \ex{Il funtore $ F\colon \CC \to \DD $ è un'equivalenza se e solo se è un funtore essenzialmente suriettivo e pienamente fedele.}{
-$ {\Rightarrow}\colon $ cominciamo mostrando che se $ F $ è un'equivalenza, allora è un funtore essenzialemnte suriettivo e pienamente fedele. Chiamiamo $ G $ il funtore nella direzione opposta, per cui sappiamo valere $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $.
+$ {\Rightarrow}\colon $ cominciamo mostrando che se $ F $ è un'equivalenza, allora è un funtore essenzialmente suriettivo e pienamente fedele. Chiamiamo $ G $ il funtore nella direzione opposta, per cui sappiamo valere $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $.
 \begin{itemize}
 	\item Essenzialmente suriettivo: preso un qualunque $ Y \in \DD $, il corrispondente $ G(Y) \in \CC $ è per costruzione tale che $ \beta_Y\colon Y \to FG(Y) $ sia un isomorfismo.
 	
@@ -74,7 +76,7 @@ $ {\Rightarrow}\colon $ cominciamo mostrando che se $ F $ è un'equivalenza, all
 	da cui deduciamo, sfruttando la fedeltà di $ G $, che $ f = F(g) $.
 \end{itemize}
 
-$ {\Leftarrow}\colon $ mostriamo ora che se $ F $ è un funtore pienamente fedele ed essenzialemtne suriettivo allora riusciamo a costruire un funtore $ G $ e delle trasformazioni naturali per cui $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $. \\
+$ {\Leftarrow}\colon $ mostriamo ora che se $ F $ è un funtore pienamente fedele ed essenzialissime suriettivo allora riusciamo a costruire un funtore $ G $ e delle trasformazioni naturali per cui $ \alpha \colon 1_\CC \simeq GF $ e $ \beta\colon 1_\DD \simeq FG $. \\
 
 Costruiamo $ G $. Preso un oggetto $ Y \in \DD $, grazia all'essenziale suriettività di $ F $, possiamo scegliere un oggetto $ X \in \CC $ per cui esiste un isomorfismo $ \eta_Y\colon Y \to F(X) $; chiamiamo l'oggetto $ G(Y) $. Presa una mappa $ f\colon Y_1 \to Y_2 $, consideriamo il diagramma
 \[\begin{tikzcd}[ampersand replacement = \&]
@@ -104,7 +106,7 @@ Z \rar["\eta_Z"]
 La mappa $ F(G(g)G(f))$ fa commutare il quadrato esterno per funtorialità di $ F $ ed è dunque $ FG(gf) $ per definizione. Della fedeltà di $ F $ deduciamo che
 \[ G(gf) = G(g)G(f). \]
 
-È evidente che $ FG $ è naturalmente isomorfo all'identità di $ \DD $ per costruizione, mostriamo dunque che c'è una trasfromazione naturale invertibile tra $ GF $ e $ 1_\CC $. Costruiamo questa trasformazione naturale: prendiamo $ X \in \CC $ e $ F(X) \in \DD $, associato a questo oggetto tramite la scelta iniziale c'è un elemento $ X' \in \CC $ (che ufficialmente abbiamo chiamato $ GF(X') $) con tanto di isomorfismo $ \eta\colon F(X) \to F(X') $. Per piena fedeltà possiamo sollevare $ \eta $ a una mappa $ \alpha $ che, per funtorialità di $ F $, rimane un isomorfismo:
+È evidente che $ FG $ è naturalmente isomorfo all'identità di $ \DD $ per costruzione, mostriamo dunque che c'è una trasformazione naturale invertibile tra $ GF $ e $ 1_\CC $. Costruiamo questa trasformazione naturale: prendiamo $ X \in \CC $ e $ F(X) \in \DD $, associato a questo oggetto tramite la scelta iniziale c'è un elemento $ X' \in \CC $ (che ufficialmente abbiamo chiamato $ GF(X') $) con tanto di isomorfismo $ \eta\colon F(X) \to F(X') $. Per piena fedeltà possiamo sollevare $ \eta $ a una mappa $ \alpha $ che, per funtorialità di $ F $, rimane un isomorfismo:
 \[ \alpha_X \colon X \to GF(X). \]
 Non ci resta che mostrare che $ \alpha $ è naturale. Prendiamo un morfismo $ f \colon X_1 \to X_2  $ e ricordiamoci che $ GF(f) $ è l'unico morfismo tale che il seguente diagramma commuta
 \[\begin{tikzcd}[ampersand replacement = \&]
@@ -156,7 +158,7 @@ HG(X)
   \rar["\beta_{G(X)}" below]
 \& KG(X).
 \end{tikzcd}\]
-Questa è effetivamente una trasformazione naturale: infatti un morfismo $ X \to Y $ produce un cubo commutativo
+Questa è effettivamente una trasformazione naturale: infatti un morfismo $ X \to Y $ produce un cubo commutativo
 \[\begin{tikzcd}[row sep=small, column sep=small, ampersand replacement = \&]
 	\& HF(X) \arrow[dl, red] \arrow[rr] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_X" near start] \&\& KF(X) \arrow[dl] \arrow[dd] \\
 	HF(Y) \arrow[rr, crossing over] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_Y"{near end, below}] \& \& KF(Y) \\
@@ -166,7 +168,7 @@ Questa è effetivamente una trasformazione naturale: infatti un morfismo $ X \to
 dal quale deduciamo la commutatività del quadrato di sbieco segnato in rosso, a cui siamo interessati.
 }
 
-\ex{Dimostrare che composizione orizzontale e verticale commutano.
+\ex{Dimostrare che composizione orizzontale e verticale soddisfano una magica relazione di compatibilità.
 %\[\begin{tikzcd}[ampersand replacement = \&]
 %\CC
 %  \rar["F"{name=F}, bend left = 50]
@@ -210,13 +212,46 @@ LH
 \end{tikzcd}\]
 }
 
+\ex{Ma la composizione orizzontale è associativa?}{
+	Sì. Supponiamo di avere
+\[\begin{tikzcd}[ampersand replacement = \&]
+\CC \rar["F"{name=F}, bend left = 50] \rar["G"{name=G, below}, bend right = 50]
+\& \DD \rar["H"{name = H}, bend left = 50] \rar["K"{name= K, below}, bend right = 50]
+\& \EE \rar["S"{name = S}, bend left = 50] \rar["T"{name= T, below}, bend right = 50]
+\& \mathcal{F}
+\arrow["\alpha", Rightarrow, from=F, to=G, shorten <=4pt,shorten >=4pt]
+\arrow["\beta", Rightarrow, from=H, to=K, shorten <=4pt,shorten >=4pt]
+\arrow["\gamma", Rightarrow, from=S, to=T, shorten <=4pt,shorten >=4pt]
+\end{tikzcd}\]
+Consideriamo il cubo
+\[\begin{tikzcd}[row sep=small, column sep=small, ampersand replacement = \&]
+\& SHF(X) \arrow[dl, red] \arrow[rr] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_X" near start] \&\& KF(X) \arrow[dl] \arrow[dd] \\
+HF(Y) \arrow[rr, crossing over] \arrow[dd] \arrow[ddrr, red, "\beta\star\alpha_Y"{near end, below}] \& \& KF(Y) \\
+\& HG(X) \arrow[dl] \arrow[rr] \& \& KG(X) \arrow[dl, red] \\
+HG(Y) \arrow[rr] \& \& KG(Y) \arrow[from=uu, crossing over]\\
+\end{tikzcd}\]
+Com'è definita la composizione $ (\alpha \star \beta) \star \gamma $? Per definizione, la sua componente in $ X \in \CC $ sarà la diagonale del quadrato commutativo
+\[\begin{tikzcd}[ampersand replacement = \&]
+SHF(X)
+  \rar["\beta_{F(X)}"]
+  \dar["S((\beta\star\alpha)_X)" left]
+  \arrow[dr, dashed, "\beta \star \alpha_X" description]
+\& THF(X)
+  \dar["K(\alpha_X)"] \\
+SKG(X)
+  \rar["\beta_{G(X)}" below]
+\& TKG(X).
+\end{tikzcd}\]
+
+}
+
 \ex{Sia $ F\colon \CC \to \DD $ un funtore pienamente fedele, dimostrare che:
 \begin{enumerate}
 	\item Se $ F(f) $ è un isomorfismo, anche $ f $ è un isomorfismo.
 	\item Se ho un isomorfismo $ F(X) \to F(Y) $, ne ho uno anche tra $ X $ e $ Y $.
 \end{enumerate}}{
 Niente di più semplice! Sia $ F(f)\colon F(X) \to F(Y) $ un isomorfismo, $ \tilde{g}= F(g) $ il suo inverso (osservare che abbiamo usato l'ipotesi di pienezza). Per funtorialità dobbiamo avere \[ F(gf) = F(g)F(f) = 1_{F(X)}. \]
-La fedeltà ci dice però che un solo elmento di $ \Hom_\CC(X, \, X) $ viene mandato in $ 1_{F(X)} \in \Hom_\DD(F(X), \, F(X)) $ e questo dev'essere, per funtorialità di $ F $, l'identità di $ X $. Analogo discorso mostra che $ fg $ è l'identità di $ Y $.
+La fedeltà ci dice però che un solo elemento di $ \Hom_\CC(X, \, X) $ viene mandato in $ 1_{F(X)} \in \Hom_\DD(F(X), \, F(X)) $ e questo dev'essere, per funtorialità di $ F $, l'identità di $ X $. Analogo discorso mostra che $ fg $ è l'identità di $ Y $.
 }
 
 \ex{Trovare un controesempio al lemma di sopra lasciando cadere l'ipotesi di pienezza.}{
@@ -282,7 +317,7 @@ Ci chiediamo:
 \begin{theorem}[Lemma di Yoneda]
 Preso un oggetto $ X \in \CC $ e un funtore $ F\colon \CC \to \Set $, esiste una bigezione (naturale in $ F $ e $ X $)
 \[ \Hom_{\Fun(\CC, \, \Set)}(\Hom_\CC(X, \, \bullet\,), \, F(\,\bullet\,)) \to F(X), \]
-che conosciamo esplcitamente: $ \alpha \mapsto \alpha_X(id_X). $
+che conosciamo esplicitamente: $ \alpha \mapsto \alpha_X(id_X). $
 \end{theorem}
 
 \ex{Mostrare la naturalità.}{
@@ -297,7 +332,7 @@ che conosciamo esplcitamente: $ \alpha \mapsto \alpha_X(id_X). $
 	  \rar \&
 	G(X)
 	\end{tikzcd}  \]
-	o, equivalentemente, che $ (\beta\circ\alpha)_X(id_X) = \beta_X(\alpha_X(id_X)) $. L'ultima uguaglianza è esattamente la defizione di composizione tra trasformazioni natruali. \\
+	o, equivalentemente, che $ (\beta\circ\alpha)_X(id_X) = \beta_X(\alpha_X(id_X)) $. L'ultima uguaglianza è esattamente la definizione di composizione tra trasformazioni naturali \\
 	
 	La naturalità in $ X $ è meno immediata: supponiamo di avere un morfismo $ f \colon X \to Y $. Vorremo che commutasse il diagramma
 	
@@ -343,7 +378,7 @@ che è proprio quello che volevamo.
 \ex{Enunciare e dimostrare la forma duale del lemma di Yoneda.}{
 Preso un oggetto $ X \in \CC $ e un funtore $ F\colon \CC^\texttt{op} \to \Set $, esiste una bigezione (naturale in $ F $ e $ X $)
 \[ \Hom_{\Fun(\CC^\texttt{op}, \, \Set)}(\Hom_\CC(\,\bullet\, , \, X), \, F(\,\bullet\,)) \to F(X), \]
-che conosciamo esplcitamente: $ \alpha \mapsto \alpha_X(id_X). $
+che conosciamo esplicitamente: $ \alpha \mapsto \alpha_X(id_X). $
 }
 
 \ex{Dimostrare che se 
@@ -361,7 +396,7 @@ Per mostrare che il prodotto tensore è commutativo sarà pertanto sufficiente d
 
 Per mostrare che su $ k $ è banale sarà sufficiente osservare che Bilin$_k (V, \, k; \, \bullet \,)$ è isomorfo a $ \Hom(V, \, \bullet \,) $, che è chiaro. \\
 
-L'associativa è lunga. Direi che l'idea è di far vedere che Bilin$_k (V \otimes W, \, Z; \, \bullet \,)$ è isomorfo al funtore che associa a uno spazio le funzioni multilineari da $ V, \, W, \, Z $: mi basterà mandare una bilieare $ \varphi $ in una multilineare $ \psi(V, \, W, \, Z) = \varphi(\otimes(V, \, W), \, Z). $ Dove $ \otimes $ è lo speciale elemento di Bilin$_k (V, \, W ; V \otimes W)$ selezionato da Yoneda (che arriva dall'isomorfismo della rappresentabilità?).
+L'associativa è lunga. Direi che l'idea è di far vedere che Bilin$_k (V \otimes W, \, Z; \, \bullet \,)$ è isomorfo al funtore che associa a uno spazio le funzioni multilineari da $ V, \, W, \, Z $: mi basterà mandare una bilineare $ \varphi $ in una multilineare $ \psi(V, \, W, \, Z) = \varphi(\otimes(V, \, W), \, Z). $ Dove $ \otimes $ è lo speciale elemento di Bilin$_k (V, \, W ; V \otimes W)$ selezionato da Yoneda (che arriva dall'isomorfismo della rappresentabilità?).
 }
 
 \ex{Verificare che la versione superdebole della corrispondenza di Tannaka funziona: ovvero la composizione in $ \Aut{F} $ coincide con quella di $ \Hom_{G-\text{set}}(G, \, G) $.}{
@@ -429,7 +464,7 @@ X \arrow[dd, bend right = 50, blue]
 A \rar\dar\& B \rar\dar\& C \dar \\
 D \rar\& E \rar\& F.
 \end{tikzcd}  \]
-Componendo $ X\to D \to E $, scopriamo che $ X $ è un cono sopra la $ \lrcorner $ del quadrato di destra, la cui cartesianità produce un'unica mappa $ X \to B $. Questa mappa fornisce ad $ X $ una struttra di cono sopra la $ \lrcorner $ del quadrato di sinistra, la cui cartesianità produce un'unica mappa $ X \to A $. Questo dimostra che il quadrato grosso è cartesiano: l'unicità di questa mappa segue infatti osservando che ogni mappa $ X \to A $ con le proprietà richieste ne induce una $ X \to B $ che deve necessariamente coincidere con $ (1) $. \\
+Componendo $ X\to D \to E $, scopriamo che $ X $ è un cono sopra la $ \lrcorner $ del quadrato di destra, la cui cartesianità produce un'unica mappa $ X \to B $. Questa mappa fornisce ad $ X $ una struttura di cono sopra la $ \lrcorner $ del quadrato di sinistra, la cui cartesianità produce un'unica mappa $ X \to A $. Questo dimostra che il quadrato grosso è cartesiano: l'unicità di questa mappa segue infatti osservando che ogni mappa $ X \to A $ con le proprietà richieste ne induce una $ X \to B $ che deve necessariamente coincidere con $ (1) $. \\
 
 2. Questo caso è più sottile: per costruire la mappa $ X \to A $ è sufficiente che il quadrato grosso sia commutativo:
 \[\begin{tikzcd}[ampersand replacement = \&]
@@ -465,7 +500,7 @@ L'unico trucco è che abbiamo usato la parola ``prodotto'', di cui però non pos
 
 }
 
-\ex{Sia $ \CC $ una categoria in cui troviamo i morfismi $ f \colon X \to Y $ e $ g \colon Z \to W $. Costruire l'insieme dei quadrati commutativi con $ f $ e $ g $ orrizontali come pullback in $ \Set $.}{
+\ex{Sia $ \CC $ una categoria in cui troviamo i morfismi $ f \colon X \to Y $ e $ g \colon Z \to W $. Costruire l'insieme dei quadrati commutativi con $ f $ e $ g $ orizzontali come pullback in $ \Set $.}{
 L'abbiamo praticamente fatto in classe: DiagComm$ (f,\, g) $ è il pullback in $ \Set $ di
 \[\begin{tikzcd}[ampersand replacement = \&]
 \& \Hom_\CC(Y, \, W) \dar["f_*"] \\
@@ -477,5 +512,317 @@ L'abbiamo praticamente fatto in classe: DiagComm$ (f,\, g) $ è il pullback in $
 \ex{Quanto sono belli i funtori dimenticanti? Quanto sono belli i funtori liberi?}{
 Non tutti i funtori dimenticanti preservano i limiti. Per dire, il prodotto in \textbf{Top}$ _* $ (la categoria degli spazi topologici puntati) non ha come insieme soggiacente il prodotto degli insiemi dei due spazi puntati. Questo ci dice anche che non può riflettere i limiti. Però forse non era proprio questa la domanda...
 }
+
+\section{Lezione 8}
+
+\ex{Dimostrare che i funtori liberi preservano i colimiti.}{
+Con funtore libero si intende generalmente, direi, un funtore $ V\colon \Set \to \CC $ che associa ad un insieme $ B $ un oggetto di $ \CC $ che ha $ B $ come base. Questo si traduce, più precisamente, in una proprietà universale: preso $ Z \in \CC $, ogni funzione $ B \to U(Z) $ si solleva in modo unico a un morfismo $ V(B) \to Z $ (insomma, stiamo dicendo che $ V $ è l'aggiunto sinistro del funtore dimenticante $ U $). Questa proprietà ci permette di preservare i colimiti: il colimite in $ \Set $ altro non è che l'unione disgiunta, dato dunque
+\[\begin{tikzcd}[ampersand replacement = \&]
+V(X_i) \arrow[d] \rar \& V(\bigsqcup X_i) \arrow[dl, dashed, red, "?"] \\
+Z 
+\end{tikzcd}  \]
+otteniamo delle funzioni $ X_i \to UV (X_i) \to U(Z) $, che produce un'unica mappa $ \bigsqcup X_i \to  U(Z)$, che si solleva per definizione di base alla mappa tratteggiata nel diagramma.
+}
+
+\ex{I funtori pienamente fedeli riflettono limiti e colimiti.}{
+Un funtore pienamente fedele produce isomorfismi naturali tra i funtori
+\[ \Hom_\CC(\,\bullet \, , X) \simeq \Hom_\DD(F(\,\bullet\,), \, FX) \qquad\text{ e }\qquad \text{Coni}_\CC(\, \bullet \, , \, K) \simeq \text{Coni}_\DD(F(\, \bullet \,) , \, FK), \]
+fissato un qualunque $ X \in \CC $. Si tratta di due verifiche sostanzialmente ovvie. Segue dunque che, se $ L \Rightarrow K $ viene mandato in un cono limite $ FL \Rightarrow FK $, si hanno degli isomorfismi naturali
+\[ \Hom_\CC(\,\bullet \, , L) \simeq \Hom_\DD(F(\,\bullet\,), \, FL) \simeq \text{Coni}_\DD(F(\, \bullet \,) , \, FK) \simeq \text{Coni}_\CC(\, \bullet \, , \, K).  \]
+L'isomorfismo centrale segue dalla definizione di cono limite in $ \DD $ e l'isomorfismo lungo ci dice che anche $ L \Rightarrow K $ è un cono limite. Naturalmente, lo stesso discorso si applica al caso duale.
+}
+
+\ex{Verificare che l'interpretazione di ``fascio'' come equalizzatore è ben fatta.}{}
+
+\ex{L'immersione di Yoneda preserva e riflette i limiti, ma non li crea.}{
+
+}
+
+\ex{Dualizzare gli enunciati della lezione.}{}
+
+\ex{Sia $ F \colon \mathbf{BG} \to \Set $. Chi è il colimite di $ F $?}{
+Possiamo esprimere il colimite come coequalizzatore di
+\[ \begin{tikzcd}[ampersand replacement = \&]
+  \displaystyle\coprod_G X_g
+    \arrow[r, "\coprod id_x" above, shift left]
+    \arrow[r, "\coprod g" below, shift right]
+    \&
+  X \rar \& Q.
+\end{tikzcd} \]
+Il coprodotto nella categoria $ \Set $ è semplicemente l'unione disgiunta, pertanto $ Q $ dev'essere il quoziente di $ X $ per la relazione di equivalenza generata da $ x \sim g(x) $ al variare di $ g \in G $. Ovvero, $ Q $ è l'insieme delle orbite dell'azione di $ G $ su $ X $.
+}
+
+\section{Ho perso il conto}
+
+\ex{Sia $ U\colon \mathbf{Fld} \to \mathbf{Dom} $ il funtore dimenticante che immerge i campi nei domini, dimostrare che il funtore $ \mathbb{Q}\colon \mathbf{Dom} \to \mathbf{Fld} $ che prende il campo dei quozienti ne è l'aggiunto sinistro.}{
+Vogliamo mostrare che c'è un isomorfismo naturale
+\[  \Hom(\Q(A), \, K ) = \Hom(A, \, U(K)),  \]
+che è semplicemente la proprietà universale del campo dei quozienti.
+}
+
+\ex{Sia $ F \dashv G $ un'aggiunzione tra $ \CC $ e $ \DD $. Chiamiamo $ \CC_\eta $ la sottocategoria piena di $ \CC $ generata dagli elementi $ X $ la cui relativa componente dell'unità $ \eta_X $ è un isomorfismo. Analogamente costruiamo $ D_\epsilon $. Mostrare che l'aggiunzione induce un'equivalenza fra queste categorie.}{
+C'è ben poco da mostrare: per ipotesi sappiamo che $ GF $ l'unità, ristretta alla sottocategoria $ C_\eta $, è una trasformazione naturale $ id_{\CC_\eta} \Rightarrow GF $ le cui componenti sono tutte isomorfismi; questo è sufficiente per concludere che la trasformazione sia un isomorfismo. Analogo discorso vale per la counità $ \epsilon $, da cui concludiamo, avendo soddisfatto la definizione di equivalenza.
+}
+
+\ex{Ogni equivalenza di categorie può essere vista come un'aggiunzione cambiando l'unità o la counità}{
+}
+
+\ex{Gli aggiunti destri preservano i limiti.}{
+L'aggiunzione $ F \dashv G $ tra $ \CC $ e $ \DD $ induce un'aggiunzione $ F_* \dashv G_* $ tra $ \CC^I $ e $ \DD^I $. Cosa debba essere il funtore $ F_* $ non è difficile da indovinare: sarà la composizione a sinistra per $ F $. Analogo discorso vale per $ G_* $. Mostrare l'aggiunzione non sembra altrettanto immediato: vogliamo un isomorfismo naturale nella coppia di diagrammi $ \alpha\colon I \to \CC $ e $ \beta\colon I \to \DD $ tra
+\[\Hom_{\DD^I}(F\alpha, \, \beta) \simeq \Hom_{\CC^I}(\alpha, \, G\beta).  \]
+Il grande trucco è accorgersi che $ \Hom_{C^I}(\alpha, \, \beta) $ è, per definizione, un limite: una collezione di mappe con qualche richiesta. In particolare sarà l'equalizzatore di
+\[ \begin{tikzcd}[ampersand replacement = \&]
+\Hom_{C^I}(\alpha, \, \beta) \rar \&
+\displaystyle\prod_{i \in I} \Hom_\CC(\alpha i, \, \beta i)
+  \arrow[r, "\prod \alpha_\varphi" above, shift left]
+  \arrow[r, "\prod \beta_\varphi" below, shift right] \&
+\displaystyle\prod_{\varphi \in I} \Hom_\CC(\alpha t(\varphi), \, \beta t(\varphi))
+\end{tikzcd} \]
+Per aggiunzione abbiamo allora degli isomorfismi
+\[ \begin{tikzcd}[ampersand replacement = \&]
+\displaystyle\prod_{i \in I} \Hom_\CC(F\alpha i, \, \beta i)
+  \arrow[r, "\prod F\alpha_\varphi" above, shift left]
+  \arrow[r, "\prod \beta_\varphi" below, shift right]
+  \dar[equal] \&
+\displaystyle\prod_{\varphi \in I} \Hom_\CC(F\alpha t(\varphi), \, \beta t(\varphi))
+  \dar[equal] \\
+\displaystyle\prod_{i \in I} \Hom_\DD(\alpha i, \, G\beta i)
+  \arrow[r, "\prod \alpha_\varphi" above, shift left]
+  \arrow[r, "\prod G\beta_\varphi" below, shift right] \&
+\displaystyle\prod_{\varphi \in I} \Hom_\DD(\alpha t(\varphi), \, G\beta t(\varphi))
+\end{tikzcd} \]
+che inducono degli isomorfismi tra gli equalizzatori.\\
+
+Proviamo con un approccio un po' diverso. Costruiamo un'unità $ H\colon id_{\CC^I} \to G_*F_* $, componente per componente: sia $ \alpha\colon I \to \CC $ un diagramma. Su questo, l'unico modo in cui possiamo agire è
+\[\begin{tikzcd}[ampersand replacement = \&]
+\CC \rar["\alpha"{name=F}, bend left = 50] \rar["\alpha"{name=G, below}, bend right = 50]
+\& \CC \rar["id_\CC"{name = H}, bend left = 50] \rar["GF"{name= K, below}, bend right = 50]
+\& \DD,
+\arrow["id", Rightarrow, from=F, to=G, shorten <=4pt,shorten >=4pt]
+\arrow["\eta", Rightarrow, from=H, to=K, shorten <=4pt,shorten >=4pt]
+\end{tikzcd}\]
+ovvero componendo orizzontalmente con $ \eta $. Ora bisognerebbe mostrare che funziona: presi $ \alpha\colon I \to \CC $, $ \beta\colon I \to \CC $ e una trasformazione naturale $ \varphi\colon \alpha \Rightarrow \beta $, dobbiamo mostrare che il diagramma
+\[\begin{tikzcd}[ampersand replacement = \&]
+\alpha
+  \rar["\eta_\alpha" ]
+  \dar["\varphi" ] \&
+GF\alpha
+  \arrow[d, "GF\varphi"  ]\\
+\beta
+  \rar["\eta_\beta"] \&
+GF\beta
+\end{tikzcd}  \]
+commuta. Il che è equivalente a mostrare che commuta componente per componente, ma questo già lo sappiamo: la commutatività di
+\[\begin{tikzcd}[ampersand replacement = \&]
+\alpha_i
+\rar["\eta_{\alpha_i}" ]
+\dar["\varphi" ] \&
+GF\alpha_i
+\arrow[d, "GF\varphi"  ]\\
+\beta_i
+\rar["\eta_{\beta_i}"] \&
+GF\beta_i
+\end{tikzcd}  \]
+segue dall'aggiunzione tra $ F \dashv G $.}
+
+\section{Cose}
+
+\ex{Dimostrare che i limiti commutano. Ovvero che, dato un bifuntore $ F\colon I \times J \to \CC $ se sia \[ \lim_{i \in I} \lim_{j \in J} F(i, j) \qquad\text{ che }\qquad \lim_{j \in J}\lim_{i \in I} F(i, j) \] esistono, allora sono entrambi limiti per $ F $.}{
+Possiamo considerare le aggiunzioni
+\[\begin{tikzcd}[ampersand replacement = \&]
+\CC
+  \rar["\Delta"{name=F}, bend left = 50]\&
+\CC^I
+  \rar["\Delta"{name = H}, bend left = 50]
+  \lar["\lim_{i \in I}"{name=G, below}, bend left = 50]\&
+\CC^{I\times J},
+  \lar["\lim_{j \in J}"{name= K, below}, bend left = 50]
+\end{tikzcd}\]
+da cui ricaviamo l'aggiunzione tra $ \Delta \dashv \lim_{i \in I} \lim_{j \in J} $; scambiando $ I $ e $ J $ otteniamo un secondo aggiunto destro di $ \Delta $. Segue che le duce composizioni di limiti possibili sono funtori isomorfi, da cui la tesi. 
+}
+
+\ex{Ho una mappa canonica
+\[ \colim_{i \in I} \lim_{j \in J} F(i, j) \to \lim_{j \in J}\colim_{i \in I} F(i, j). \]
+}{
+Questo si con le mani. Per ottenere una mappa dal colimite è sufficiente definirla sulle componenti, mentre per ottenere una mappa sul limite è sufficiente definirla sulle proiezioni; in conclusione, la mappa la otteniamo applicando le rispettive proprietà universali a partire da
+\[ \varphi_{ab}\colon\lim_{j \in J} F(a, j) \to F(a, b) \to \colim_{i \in I} F(i, b), \]
+per ogni $ a \in I $ in partenza e $ b \in J $ in arrivo.
+}
+
+\ex{Dimostrare che, data una successione reale $ (x_n)_{n \in \N} $, vale che
+\[ \liminf x_n \leq \limsup x_n. \]}{
+Definiamo $ y\colon \N \times \N \to \R $ come $ y(i, j) = x_{\max(i, j)} $.
+Ricordandoci che
+\[ \liminf x_n = \sup_{i \geq 0} \inf_{j \geq i} x_j = \sup_i \inf_j y(i,j), \]
+otteniamo, applicando la proposizione precedente, che
+\[ \liminf x_n = \sup_i \inf_j y(i,j) \leq \inf_j \sup_i y(i, j) = \limsup x_n. \]
+}
+
+\section{Dovrei mettere delle sezioni sensate}
+\ex{Sia $ \DD $ una categoria localmente piccola e $ G \colon \DD \to \CC $ un funtore. Il relativo funtore dimenticante
+\[ U \colon X \downarrow G \to \DD \]
+crea tutti i limiti che esistono in $ \DD $ e sono preservati da $ G $.}{
+Sia $ K \colon I \to X \downarrow G $ un diagramma, $ UK \colon I \to \DD $ la sua immagine in $ \DD $: questo è un diagramma più buffo di quello che ci si aspetterebbe, infatti ha la meravigliosa proprietà che, mandandolo in $ \CC $ otteniamo un cono $ \varphi\colon X \Rightarrow GUK $ (che, a dirla tutta, non è nemmeno un cono a caso, ma è proprio il cono formato dalla mappe $ \varphi_i\colon X \to Ki $ che ci siamo dimenticati). Supponiamo che esista un cono limite $ L \Rightarrow UK $ in $ \DD $ e che questa venga preservato da $ G $, ovvero che anche $ GL \Rightarrow GUK $ sia un cono limite in $ \CC $. A questo punto consideriamo la fattorizzazione di $ X \Rightarrow GUK $ per il cono limite $ GL \Rightarrow GUK $: questa fornisce un'unica mappa $ \lambda \colon X \to GL $ in $ \CC $, che ci suggerisce di considerare come limite in $ X \downarrow G $ il cono di vertice $ (L, \, \lambda) $ e mappe $ G(L \Rightarrow UK) $.
+}
+
+\ex{Usare il GAFT per mostrare che il funtore dimenticante \[ U\colon\mathbf{Grp} \to \Set \] ha un aggiunto sinistro.}{
+La categoria $ \Set $ è completa e localmente piccola. Per mostrare che il funtore dimenticante $ U $ è continuo è sufficiente mostrare che preserva prodotti ed equalizzatori, ma è evidente: l'insieme che soggiace a entrambi è il rispettivamente prodotto ed equalizzatore come insieme. Infine, dobbiamo mostrare che per ogni $ X \in \Set $ la categoria $ X \downarrow U $ ha un insieme piccolo unitamente debolmente iniziale: questo è molto semplice, infatti l'insieme $ X $ può essere dotato di una struttura di gruppo $ X_G $ in qualche modo, così che $ UX_G = X $; l'elemento $ (X_G, \, id_X) $ è debolmente iniziale in $ X \downarrow G $ in modo banale.
+}
+
+sns\section{Monadi}
+
+\ex{Sia $ \mathcal{P}\colon \Set \to \Set $ il funtore che manda ogni insieme nell'insieme della parti, $ \eta_X\colon X \to \mathcal{P}(X) $ la mappa che manda ogni elemento $ x $ in nel singoletto che costituisce $ \{x\} $ e $ \mu \colon \mathcal{P}(\mathcal{P}(X)) \to \mathcal{P}(X) $ l'unione. Mostrare che abbiamo appena, accidentalmente, definito una mondade.}{
+Verifichiamo che il digramma dell'unità commuta
+\[\begin{tikzcd}[ampersand replacement = \&]
+A \rar[mapsto, "\eta_{\mathcal{P}(X)}"] \arrow[dr, equal]
+\& \{A\} \dar[mapsto, "\mu_X"]
+\& \mathcal{P}(X) \rar["\eta_{\mathcal{P}(X)}"] \arrow[dr, equal]
+\& \mathcal{P}(\mathcal{P}(X)) \dar["\mu_X"]
+\& \mathcal{P}(X) \lar["\mathcal{P}(\eta_X)" above] \arrow[dl, equal]
+\& \{ \{ a \} \mid a \in A \} \dar[mapsto, "\mu_X" left]
+\& A \lar[mapsto, "\mathcal{P}(\eta_X)" above]
+\arrow[dl, equal] \\
+\& \displaystyle\bigcup_{B \in \{A\}} B \& \& \mathcal{P}(X) 
+\& \& \bigcup \left(\{ \{ a \} \mid a \in A \}\right) \&
+\end{tikzcd}  \]
+
+e, analogamente, che commuta quello della moltiplicazione
+\[ \begin{tikzcd}[ampersand replacement = \&]
+\mathcal{P}(\mathcal{P}(\mathcal{P}(X)))
+    \dar["\mathcal{P}(\mu_X)"] \rar["\mu_{\mathcal{P}(X)}"] \&
+\mathcal{P}(\mathcal{P}(X))
+    \dar["\mu_X"] \&
+\{A_i\}
+    \dar["\mathcal{P}(\mu_X)"] \rar["\mu_{\mathcal{P}(X)}"] \&
+\bigcup_i A_i
+	\dar["\mu_X"] \\
+\mathcal{P}(\mathcal{P}(X))
+	\rar["\mu_X"] \&
+\mathcal{P}(X) \&
+\{ \bigcup(A_i) \}_i
+	\rar["\mu_X"] \&
+\bigcup_i \bigcup(A_i).
+\end{tikzcd} \]
+Non si è capito nulla, ma non capisco come renderlo comprensibile.
+}
+
+\ex{Mostrare che le $ T $-algebre su $ \CC $ formano una categoria $ \CC^T $.}{
+Che l'identità sia un morfismo si algebre, che si comporta come l'identità, è fondamentalmente ovvio; ma anche che la composizione funziona, quindi non dimostrerò nulla.}
+
+\ex{Finire di verificare che ogni monade è la monade di un'aggiunzione.}{}
+
+\ex{Dimostrare che la categoria delle algebra di Klesli $ \CC_T $ è effettivamente una categoria.}{
+Ricordiamo $ \CC_T $ è la categoria che ha gli stessi oggetti di $ C $, ma i morfismi sono ``spostati'': $ \Hom_{\CC_T}(X, \, Y) = \Hom_\CC(X, \, TY) $. Una volta definita unità ($ \eta_X\colon X \to TX $) e composizione ($ f\colon X \to TY $, $ g\colon Y \to TZ $ danno $ g \circ f = \mu_zT(g)f\colon X \to TY \to T^2 Z \to TZ $) non ci resta molto da verificare, se non che l'unità si comporta com'è ragionevole che faccia: presa $ f \colon X \to TY $
+\[ \eta_Y \circ f = \underbrace{\mu_Y T(\eta_Y)}_{= id_Y} f = f \qquad \text{ e }\qquad f \circ \eta_X =  \mu_Y T(f) \eta_X = \mu_Y \eta_{TY} f = f.  \]
+La prima uguaglianza segue dalla definizione di monade, la seconda dalla naturalità di $ \eta $, seguita dalla monadicità.
+}
+
+\ex{Verificare che $ F_T $ e $ G_T $ sono funtori}{
+Ricordiamo come sono fattin questi funtori: $ F_T\colon \CC \to \CC_T $ non fa nulla sugli oggetti ma manda le mappe in $ F_T(f) = \eta_Y \cdot f = T(f) \cdot \eta_X $ (che sono definizioni equivalenti per naturalità di $ \eta $). L'identità va nel posto giusto, rimane da verificare solo che la composizioni funzioni:
+\begin{align*}
+	(\eta_Z \cdot g) \circ (T(f) \cdot \eta_X) & =
+	\mu_Z \cdot T(\eta_Z \cdot g) \cdot (T(f) \cdot \eta_X) \\ & =
+	\mu_Z \cdot T(\eta_Z) \cdot T(g) \cdot T(f) \cdot \eta_X \\ & =
+	T(g) \circ T(f).
+\end{align*}
+L'altra verifica non è significativamente diversa.
+}
+
+\ex{Verificare che la categoria delle aggiunzioni $ \mathbf{Agg}_T $ è effettivamente una categoria.}{}
+
+\ex{Finire le verifiche nella dimostrazione che trova oggetti iniziali e finali di $ \mathbf{Agg}_T $.}{
+
+}
+
+\ex{Mostrare che, date due aggiunzioni e un morfismo $ \Phi\colon \DD \to \DD' $ tra queste, si ha che $ \Phi\varepsilon = \varepsilon' \Phi $.}{
+Abbiamo visto a lezione che il seguente diagramma commuta:
+\begin{center}
+	\begin{tikzpicture}[commutative diagrams/every diagram]
+	\node (P0) at (90:2.3cm)    {$\Hom_\DD(FX, \, Y)$};
+	\node (P1) at (90+72:2cm)   {$\Hom_{\DD'}(\Phi FX, \, \Phi Y)$} ;
+	\node (P2) at (90+2*72:2cm) {$\Hom_{\DD'}(F'X, \, \Phi Y)$};
+	\node (P3) at (90+3*72:2cm) {\makebox[5ex][l]{$\Hom_{\CC}(X, \, G'\Phi Y)$}};
+	\node (P4) at (90+4*72:2cm) {$\Hom_{\CC}(X, \, GY)$};
+	\path[commutative diagrams/.cd, every arrow, every label]
+	(P0) edge node[swap] {$\Phi$} (P1)
+	(P2) edge node[swap] {$=$} (P1)
+	(P2) edge node {$adj'$} (P3)
+	(P4) edge node {$=$} (P3)
+	(P0) edge node {$adj$} (P4);
+	\end{tikzpicture}
+%	\begin{tikzpicture}
+%	\node[
+%	regular polygon,
+%	regular polygon sides=5,
+%	minimum width=50mm,
+%	] (PG) {}
+%	(PG.corner 1) node (PG1) {$\Hom_\DD(FX, \, Y)$}
+%	(PG.corner 2) node (PG2) {$\Hom_{\DD'}(\Phi FX, \, \Phi Y)$}
+%	(PG.corner 3) node (PG3) {$\Hom_{\DD'}(F'X, \, \Phi Y)$}
+%	(PG.corner 4) node (PG4) {$\Hom_{\CC}(X, \, G'\Phi Y)$}
+%	(PG.corner 5) node (PG5) {$\Hom_{\CC}(X, \, GY)$}
+%	;
+%	\foreach \S/\E in {
+%		1/5,
+%		1/2, 3/2,
+%		4/3,
+%		5/4%
+%	} {
+%		\draw[->] (PG\S) -- (PG\E);
+%	}
+%	\end{tikzpicture}
+\end{center}
+Scegliamo allora $ X = GY $ e prendiamo $ f = \varepsilon_Y \in \Hom_\DD(FGX, \, Y) $, ottenendo così nel vertice sinistro $$  \Phi(\varepsilon_Y) = adj'(adj(\varepsilon_Y)) = adj'(id_{GY}) = adj'(id_{G'\Phi Y}) = \varepsilon'_{\Phi Y},  $$ proprio come volevamo. Si conclude per naturalità degli isomorfismi.
+}
+
+\ex{Il funtore canonico $ \CC_T \to \CC^T $ è pienamente fedele.}{
+Dimostrando che $ \CC_T $ è iniziale e $ \CC^T $ finale, abbiamo costruito esplicitamente il morfismo che deve entrare (risp. uscire) dalla categoria. In particolare, costruendo la mappa che esce da $ \CC_T $, abbiamo dedotto che si deve avere $$  \Phi(X) = F^TX  $$ e, costruendo quella entra in $ \CC^T $, che $$ \Phi(f) = G_T(f) = T(f)\eta_X (= \mu_YT(f)).  $$
+Per definizione di $ \CC_T $ e l'aggiunzione di $ F^T \dashv G^T $ abbiamo che
+\begin{align*}
+\Hom_{\CC_T}(X, \, Y) & = \Hom_{\CC}(X, \, TY) \\
+& = \Hom_{\CC}(X, \, G^TF^TY) \\
+& \simeq \Hom_{\CC^T}(F^TX, \, F^TY) \\
+& = \Hom_{\CC^T}(\Phi X, \, \Phi Y).
+\end{align*}
+inoltre, l'isomorfismo di aggiunzione coincide proprio con la mappa $ \Phi $ sulle funzioni, per quanto osservato sopra.}
+
+\ex{Dimostrare che
+\[ \begin{tikzcd}[ampersand replacement = \&]
+\Z[\Z[G]]
+  \rar[shift left, "\Z(p)"]
+  \rar[shift right, "\mu_G" below] \&
+\Z[G]
+  \rar["p"] \&
+G
+\end{tikzcd} \]
+è un coequalizzatore.}{
+Osserviamo intanto che l'oggetto di destra forma un cono sulla coppia di sinistra: per questo è sufficiente osservare che $ (G, \, p) $ è un'algebra, ma per rimanere nello spirito dell'esercizio si può anche interpretare; gli elementi dell'oggetto di sinistra sono combinazioni lineari formali a coefficienti interi di combinazione lineari formali a coefficienti interi di elementi di $ G $, ovvero ogggetti della forma
+\[ \sum_i m_i \sum_G n_{gi} g \]
+e in qualsiasi modo si scelga di percorrere il cono (far agire prima gli $ m_i $ sugli $ n_{gi} $ oppure valutare prima le somme $ \sum_Gn_{gi}g $) si finisce nell'elemento $ \sum_i \sum_G m_in_{gi} g $ di $ G $.
+Dopodiché prendiamo un secondo cono
+	\[ \begin{tikzcd}[ampersand replacement = \&]
+	\Z[\Z[G]]
+	\rar[shift left, "\Z(p)"]
+	\rar[shift right, "\mu_G" below] \&
+	\Z[G]
+	\rar["p"]
+	\arrow[dr, "a" below] \&
+	G \\
+	\& \& H
+	\end{tikzcd} \]
+BOH. Credo che basti mostrare che $ I_G < \ker a $, ovvero che $ a(1-g) = 0 $ ma sono troppo fuso per capire cosa sia l'uno e cosa sia il meno.
+}
+
+\ex{Dimostrare la generalizzazione dell'esercizio sopra a mano:
+\[ \begin{tikzcd}[ampersand replacement = \&]
+(T^2X, \, \mu_{TX})
+\rar[shift left, "Ta"]
+\rar[shift right, "\mu_X" below] \&
+(TX, \, \mu_X)
+\rar["a"] \&
+(X, \, a).
+\end{tikzcd} \]}{}
+
+
 
 \end{document}
